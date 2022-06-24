@@ -1,0 +1,32 @@
+module for_horner #(parameter N = 32)
+  (input [N-1:0] x,
+   output reg [N-1:0] y);
+  
+ wire [N-1:0] x_sq;
+  reg [N-1] coeff;
+  parameter N_degree = 3;
+  assign  x_sq = x*x;  //^N_degree; ??
+  genvar i; //to store positive interger values
+  
+  //x^3+x^2+1
+  
+  initial begin
+    coeff[0] = 1;
+    coeff[1] = 1;
+    coeff[2] = 1;
+  
+  end
+   
+ 
+	//instantiate FMA
+  	FMA_31 a1(x,x_sq,s_cin,y ); 
+  
+  generate 
+    for (i=3;i >= 1; i--) begin: horne_algo
+      
+    
+      	y = (y*x) + coeff[i];
+  
+    end
+  endgenerate
+endmodule 
